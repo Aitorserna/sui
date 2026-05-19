@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic'
 
 import { NextRequest, NextResponse } from 'next/server'
+import { isDemoMode } from '@/lib/demo-data'
 import { createServerSupabase } from '@/lib/supabase'
 
 function checkAuth(req: NextRequest) {
@@ -9,6 +10,16 @@ function checkAuth(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   if (!checkAuth(req)) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+
+  if (isDemoMode()) {
+    return NextResponse.json({
+      today_appointments: 3,
+      today_revenue: 10000,
+      month_revenue: 187500,
+      total_clients: 4,
+      pending_appointments: 1,
+    })
+  }
 
   const db = createServerSupabase()
   const today = new Date().toISOString().split('T')[0]
@@ -21,7 +32,6 @@ export async function GET(req: NextRequest) {
     db.from('appointments').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
   ])
 
-  // Get service prices separately to avoid join type issues
   const todayServiceIds = (todayRes.data || []).map((a) => a.service_id)
   const monthServiceIds = (monthRes.data || []).map((a) => a.service_id)
 

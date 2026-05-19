@@ -41,7 +41,7 @@ export interface Client {
   id: string
   name: string
   email: string
-  phone: string
+  phone: string | null
   total_visits: number
   last_visit?: string
   created_at: string

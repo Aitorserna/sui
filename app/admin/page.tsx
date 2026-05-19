@@ -83,13 +83,19 @@ export default function AdminPage() {
   }, [authenticated, loadData, loadServices, loadClients])
 
   const login = () => {
-    if (password === 'admin123' || password.length > 0) {
+    // Accept any password in demo mode; in production validate against ADMIN_PASSWORD
+    if (password.length > 0) {
       setAdminKey(password)
       setAuthenticated(true)
       setLoginError('')
     } else {
-      setLoginError('Contraseña incorrecta')
+      setLoginError('Introduce una contraseña')
     }
+  }
+
+  const loginDemo = () => {
+    setAdminKey('admin123')
+    setAuthenticated(true)
   }
 
   const updateAppointmentStatus = async (id: string, status: string) => {
@@ -148,7 +154,12 @@ export default function AdminPage() {
             <Button onClick={login} size="lg" className="w-full">
               Entrar
             </Button>
-            <p className="text-white/20 text-xs text-center mt-3">Demo: cualquier contraseña funciona</p>
+            <button
+              onClick={loginDemo}
+              className="w-full mt-3 py-2 text-xs text-gold-500/70 hover:text-gold-400 border border-gold-500/20 hover:border-gold-500/40 rounded-lg transition-colors"
+            >
+              ▶ Entrar en modo demo (sin contraseña)
+            </button>
           </div>
         </div>
       </div>
