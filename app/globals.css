@@ -1,29 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --color-gold-50: #fdfaed;
-  --color-gold-100: #faf0c2;
-  --color-gold-200: #f5de81;
-  --color-gold-300: #efc540;
-  --color-gold-400: #e5ab1c;
-  --color-gold-500: #c9a84c;
-  --color-gold-600: #a8860e;
-  --color-gold-700: #856a0e;
-  --color-gold-800: #6e5512;
-  --color-gold-900: #5e4714;
-  --color-gold-950: #362507;
+  /* Boxing red palette — replaces gold throughout the app */
+  --color-gold-50: #fff1f2;
+  --color-gold-100: #ffe0e3;
+  --color-gold-200: #ffc0c7;
+  --color-gold-300: #ff8f9a;
+  --color-gold-400: #f75060;
+  --color-gold-500: #C9193A;
+  --color-gold-600: #a8142f;
+  --color-gold-700: #8b1027;
+  --color-gold-800: #6b0d1e;
+  --color-gold-900: #4a0913;
+  --color-gold-950: #2d050c;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
-body {
-  background: #000;
-  color: #fff;
+body { background: #0a0a0a; color: #fff; }
+
+/* Vintage texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' fill='%23ffffff08'/%3E%3C/svg%3E");
 }
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #111; }
-::-webkit-scrollbar-thumb { background: #c9a84c44; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #c9a84c88; }
+::-webkit-scrollbar-thumb { background: #C9193A44; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #C9193A88; }
+
+/* Vintage stamp style */
+.stamp {
+  border: 3px solid currentColor;
+  transform: rotate(-2deg);
+  display: inline-block;
+}

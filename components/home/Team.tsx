@@ -1,80 +1,101 @@
-import { Scissors } from 'lucide-react'
+import Link from 'next/link'
+import { CheckCircle, Clock } from 'lucide-react'
 
-const barbers = [
-  {
-    name: 'Marco Reyes',
-    role: 'Maestro Barbero',
-    bio: '15 años perfeccionando el arte de la barbería clásica y moderna.',
-    specialties: ['Fade', 'Barba clásica', 'Afeitado con navaja'],
-    gradient: 'from-gold-900/50 to-black',
-  },
-  {
-    name: 'Alejandro Silva',
-    role: 'Especialista en Diseño',
-    bio: 'Transforma tu imagen con cortes contemporáneos y diseños únicos.',
-    specialties: ['Diseños artísticos', 'Fades', 'Cortes modernos'],
-    gradient: 'from-zinc-800/50 to-black',
-  },
-  {
-    name: 'Carlos Mendez',
-    role: 'Experto en Tratamientos',
-    bio: 'El cuidado del cabello y la barba llevados al siguiente nivel.',
-    specialties: ['Tratamientos', 'Estilos vintage', 'Pompadour'],
-    gradient: 'from-gold-900/30 to-black',
-  },
-]
+const specialties = ['Fade', 'Corte Clásico', 'Arreglo de Barba', 'Cejas', 'Cuidado Capilar', 'Peinado Masculino']
+const notAvailable = ['Tintes', 'Permanentes']
 
 export default function Team() {
   return (
-    <section id="barberos" className="py-24 bg-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="barbero" className="py-24 bg-black">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
             <div className="h-px w-8 bg-gold-500" />
-            <span className="text-gold-500 text-xs tracking-[0.3em] uppercase font-semibold">Nuestro Equipo</span>
+            <span className="text-gold-500 text-xs tracking-[0.4em] uppercase font-bold">El Campeón</span>
             <div className="h-px w-8 bg-gold-500" />
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            Los <span className="text-gold-500">Maestros</span>
+          <h2 className="text-4xl sm:text-5xl font-black text-white uppercase mb-4">
+            Marcos <span className="text-gold-500">Martínez</span>
           </h2>
-          <p className="text-white/50 text-lg max-w-xl mx-auto">
-            Artesanos del cabello con años de experiencia y pasión por el detalle
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {barbers.map((barber) => (
-            <div
-              key={barber.name}
-              className="group relative bg-zinc-900 rounded-2xl overflow-hidden border border-white/10 hover:border-gold-500/40 transition-all duration-300"
-            >
-              {/* Avatar placeholder */}
-              <div className={`h-64 bg-gradient-to-b ${barber.gradient} flex items-end justify-center pb-6`}>
-                <div className="w-24 h-24 rounded-full bg-zinc-800 border-2 border-gold-500/30 flex items-center justify-center">
-                  <Scissors className="w-10 h-10 text-gold-500" />
-                </div>
-              </div>
-
-              <div className="p-6">
-                <h3 className="text-white font-bold text-xl mb-1 group-hover:text-gold-400 transition-colors">
-                  {barber.name}
-                </h3>
-                <p className="text-gold-500 text-sm font-medium mb-3">{barber.role}</p>
-                <p className="text-white/50 text-sm leading-relaxed mb-4">{barber.bio}</p>
-
-                <div className="flex flex-wrap gap-2">
-                  {barber.specialties.map((s) => (
-                    <span
-                      key={s}
-                      className="text-xs px-2 py-1 bg-gold-500/10 text-gold-400 border border-gold-500/20 rounded"
-                    >
-                      {s}
-                    </span>
-                  ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Avatar / boxing poster style */}
+          <div className="relative">
+            <div className="aspect-square max-w-sm mx-auto bg-zinc-900 rounded-2xl border-2 border-gold-500/30 flex flex-col items-center justify-center overflow-hidden">
+              {/* Vintage boxing poster bg */}
+              <div className="absolute inset-0 opacity-5"
+                style={{ backgroundImage: 'repeating-linear-gradient(45deg, #C9193A 0, #C9193A 2px, transparent 0, transparent 30px)' }}
+              />
+              <div className="relative text-center p-8">
+                <div className="text-8xl mb-4">🥊</div>
+                <p className="text-gold-500 font-black text-2xl uppercase tracking-widest">Marcos</p>
+                <p className="text-white/60 text-sm uppercase tracking-widest">Martínez</p>
+                <div className="mt-4 px-4 py-1 border border-gold-500/40 inline-block">
+                  <span className="text-gold-500 text-xs uppercase tracking-widest font-bold">Le Barber</span>
                 </div>
               </div>
             </div>
-          ))}
+            {/* Boxing corner decoration */}
+            <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-gold-500" />
+            <div className="absolute -top-3 -right-3 w-6 h-6 border-t-2 border-r-2 border-gold-500" />
+            <div className="absolute -bottom-3 -left-3 w-6 h-6 border-b-2 border-l-2 border-gold-500" />
+            <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-gold-500" />
+          </div>
+
+          {/* Info */}
+          <div>
+            <p className="text-white/60 text-base leading-relaxed mb-8">
+              Barbero profesional con dominio total de los estilos más demandados.
+              Cada cliente es un proyecto único — por eso Marcos revisa personalmente
+              cada reserva antes de confirmarla.
+            </p>
+
+            {/* What he does */}
+            <div className="mb-6">
+              <h3 className="text-gold-500 text-xs font-bold uppercase tracking-widest mb-3">✓ Especialidades</h3>
+              <div className="flex flex-wrap gap-2">
+                {specialties.map((s) => (
+                  <span key={s} className="flex items-center gap-1.5 text-sm px-3 py-1.5 bg-gold-500/10 text-gold-300 border border-gold-500/20 rounded-full">
+                    <CheckCircle className="w-3.5 h-3.5" /> {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* What he doesn't do */}
+            <div className="mb-8">
+              <h3 className="text-white/30 text-xs font-bold uppercase tracking-widest mb-3">✕ No disponible</h3>
+              <div className="flex flex-wrap gap-2">
+                {notAvailable.map((s) => (
+                  <span key={s} className="text-sm px-3 py-1.5 bg-white/5 text-white/30 border border-white/10 rounded-full line-through">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Availability notice */}
+            <div className="bg-zinc-900 border border-gold-500/20 rounded-xl p-5 mb-6">
+              <div className="flex items-start gap-3">
+                <Clock className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white font-bold text-sm mb-1">Disponibilidad variable</p>
+                  <p className="text-white/50 text-sm leading-relaxed">
+                    El horario de Marcos varía cada semana. Reserva tu hora preferida y él confirmará
+                    en menos de 24h si puede atenderte. Si no puede, te avisamos y devolvemos la señal.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <Link href="/reservar">
+              <button className="w-full bg-gold-500 hover:bg-gold-400 text-black font-black uppercase tracking-widest py-4 rounded transition-colors">
+                Reservar con Marcos — 3€ señal
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

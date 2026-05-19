@@ -5,9 +5,9 @@ import './globals.css'
 const geist = Geist({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Noir Barber — Barbería Premium Madrid',
-  description: 'Barbería premium en Madrid. Reserva tu cita online con nuestros maestros barberos. Cortes clásicos, fades, arreglo de barba y tratamientos capilares.',
-  keywords: 'barbería, barbería premium, Madrid, corte de pelo, barba, fade',
+  title: 'Le Barber — Fades, Cortes, Barba y Cejas',
+  description: 'Reserva tu cita con Marcos Martínez. Fades, cortes clásicos, barba, cejas y cuidado capilar. Solo 3€ de señal para confirmar.',
+  keywords: 'barbería, fade, corte clásico, barba, cejas, cuidado capilar, Le Barber',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

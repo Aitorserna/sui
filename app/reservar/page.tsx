@@ -110,9 +110,10 @@ function BookingContent() {
             <div className="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center">
               <Scissors className="w-4 h-4 text-black" />
             </div>
-            <span className="text-gold-500 font-bold tracking-widest uppercase">Noir Barber</span>
+            <span className="text-gold-500 font-black tracking-widest uppercase">Le Barber</span>
           </div>
-          <h1 className="text-3xl font-bold text-white">Reservar Cita</h1>
+          <h1 className="text-3xl font-black text-white uppercase">Reservar Cita</h1>
+          <p className="text-white/40 text-sm mt-1">Solo se cobra <span className="text-gold-400 font-bold">3€ de señal</span> — el resto en el local</p>
         </div>
 
         {/* Progress */}
@@ -176,34 +177,41 @@ function BookingContent() {
 
           {step === 4 && (
             <div>
-              <h2 className="text-white font-semibold text-xl mb-6">Resumen y pago</h2>
-              <div className="space-y-4 mb-6">
-                <div className="bg-black/50 rounded-xl border border-white/10 p-5 space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-white/50">Servicio</span>
-                    <span className="text-white font-medium">{service?.name}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-white/50">Barbero</span>
-                    <span className="text-white font-medium">{barber?.name}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-white/50">Fecha</span>
-                    <span className="text-white font-medium">{selectedDate ? formatDate(selectedDate.toISOString()) : ''}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-white/50">Hora</span>
-                    <span className="text-white font-medium">{selectedTime}</span>
-                  </div>
-                  <div className="flex justify-between text-sm border-t border-white/10 pt-3">
-                    <span className="text-white/50">Duración</span>
-                    <span className="text-white font-medium">{service?.duration} min</span>
-                  </div>
-                  <div className="flex justify-between border-t border-gold-500/30 pt-3">
-                    <span className="text-gold-500 font-semibold">Total</span>
-                    <span className="text-gold-500 font-bold text-xl">{service ? formatCurrency(service.price) : ''}</span>
-                  </div>
+              <h2 className="text-white font-black text-xl uppercase mb-6">Resumen y señal</h2>
+              <div className="bg-black/50 rounded-xl border border-white/10 p-5 space-y-3 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-white/50">Servicio</span>
+                  <span className="text-white font-medium">{service?.name}</span>
                 </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-white/50">Barbero</span>
+                  <span className="text-white font-medium">{barber?.name}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-white/50">Fecha</span>
+                  <span className="text-white font-medium">{selectedDate ? formatDate(selectedDate.toISOString()) : ''}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-white/50">Hora</span>
+                  <span className="text-white font-medium">{selectedTime}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-white/50">Duración aprox.</span>
+                  <span className="text-white font-medium">{service?.duration} min</span>
+                </div>
+                <div className="flex justify-between text-sm border-t border-white/10 pt-3">
+                  <span className="text-white/50">Precio del servicio</span>
+                  <span className="text-white/70">{service ? formatCurrency(service.price) : ''} <span className="text-white/30">(se paga en el local)</span></span>
+                </div>
+                <div className="flex justify-between border-t border-gold-500/30 pt-3">
+                  <span className="text-gold-500 font-black uppercase tracking-wider">Señal ahora</span>
+                  <span className="text-gold-500 font-black text-2xl">3,00 €</span>
+                </div>
+              </div>
+
+              <div className="bg-gold-500/5 border border-gold-500/20 rounded-lg px-4 py-3 mb-4 text-sm text-white/60 leading-relaxed">
+                🥊 Marcos revisará tu solicitud y confirmará la cita en menos de 24h.
+                Si no puede atenderte, <span className="text-gold-400">te devolvemos los 3€</span> automáticamente.
               </div>
 
               {error && (
@@ -212,18 +220,13 @@ function BookingContent() {
                 </div>
               )}
 
-              <Button
-                onClick={handleSubmit(onSubmit)}
-                loading={submitting}
-                size="lg"
-                className="w-full text-base"
-              >
+              <Button onClick={handleSubmit(onSubmit)} loading={submitting} size="lg" className="w-full text-base font-black uppercase tracking-wider">
                 <CreditCard className="w-5 h-5" />
-                Pagar y confirmar cita
+                Pagar señal · 3€
               </Button>
 
-              <p className="text-white/30 text-xs text-center mt-4">
-                Pago seguro procesado por Stripe. Tu cita se confirma tras el pago.
+              <p className="text-white/20 text-xs text-center mt-4">
+                Pago seguro por Stripe. El resto se abona el día de la cita en el local.
               </p>
             </div>
           )}
