@@ -1,101 +1,156 @@
+'use client'
+
 import Link from 'next/link'
-import { CheckCircle, Clock } from 'lucide-react'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { CheckCircle, Clock, ArrowRight } from 'lucide-react'
 
 const specialties = ['Fade', 'Corte Clásico', 'Arreglo de Barba', 'Cejas', 'Cuidado Capilar', 'Peinado Masculino']
 const notAvailable = ['Tintes', 'Permanentes']
 
 export default function Team() {
-  return (
-    <section id="barbero" className="py-24 bg-black">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
 
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 mb-4">
+  return (
+    <section id="barbero" className="py-28 bg-black relative overflow-hidden">
+      {/* BG blobs */}
+      <div className="absolute top-1/2 left-0 w-96 h-96 -translate-y-1/2 -translate-x-1/2 rounded-full opacity-10 blob-1"
+        style={{ background: 'radial-gradient(circle, #C9A84C, transparent)' }} />
+      <div className="absolute bottom-0 right-0 w-80 h-80 translate-x-1/3 translate-y-1/3 rounded-full opacity-8 blob-2"
+        style={{ background: 'radial-gradient(circle, #DC143C, transparent)' }} />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Title */}
+        <div className="text-center mb-20">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="inline-flex items-center gap-3 mb-4">
             <div className="h-px w-8 bg-gold-500" />
-            <span className="text-gold-500 text-xs tracking-[0.4em] uppercase font-bold">El Campeón</span>
+            <span className="text-gold-500 text-xs tracking-[0.4em] uppercase font-bold">El Maestro</span>
             <div className="h-px w-8 bg-gold-500" />
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-black text-white uppercase mb-4">
+          </motion.div>
+          <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-5xl sm:text-6xl font-black text-white uppercase leading-none">
             Marcos <span className="text-gold-500">Martínez</span>
-          </h2>
+          </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Avatar / boxing poster style */}
-          <div className="relative">
-            <div className="aspect-square max-w-sm mx-auto bg-zinc-900 rounded-2xl border-2 border-gold-500/30 flex flex-col items-center justify-center overflow-hidden">
-              {/* Vintage boxing poster bg */}
-              <div className="absolute inset-0 opacity-5"
-                style={{ backgroundImage: 'repeating-linear-gradient(45deg, #C9193A 0, #C9193A 2px, transparent 0, transparent 30px)' }}
-              />
-              <div className="relative text-center p-8">
-                <div className="text-8xl mb-4">🥊</div>
-                <p className="text-gold-500 font-black text-2xl uppercase tracking-widest">Marcos</p>
-                <p className="text-white/60 text-sm uppercase tracking-widest">Martínez</p>
-                <div className="mt-4 px-4 py-1 border border-gold-500/40 inline-block">
-                  <span className="text-gold-500 text-xs uppercase tracking-widest font-bold">Le Barber</span>
+        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+          {/* Left — animated card */}
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative"
+          >
+            {/* Outer glow */}
+            <div className="absolute inset-0 rounded-3xl blur-2xl opacity-20"
+              style={{ background: 'linear-gradient(135deg, #C9A84C, #DC143C)' }} />
+
+            <div className="relative glass rounded-3xl border border-white/10 overflow-hidden aspect-square flex flex-col items-center justify-center p-10">
+              {/* Animated bg pattern */}
+              <div className="absolute inset-0 opacity-5 spin-slow"
+                style={{
+                  backgroundImage: 'repeating-conic-gradient(#C9A84C 0deg, transparent 1deg, transparent 9deg)',
+                  backgroundSize: '40px 40px',
+                }} />
+
+              {/* Avatar */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                className="relative mb-6"
+              >
+                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-gold-500/20 to-gold-500/5 border-2 border-gold-500/30 flex items-center justify-center">
+                  <span className="text-6xl">✂️</span>
                 </div>
+                {/* Pulse ring */}
+                <div className="absolute inset-0 rounded-full border border-gold-500/40 animate-ping" style={{ animationDuration: '3s' }} />
+              </motion.div>
+
+              <h3 className="text-white font-black text-2xl uppercase tracking-widest mb-1">Marcos</h3>
+              <p className="text-gold-500 text-sm uppercase tracking-widest mb-4">Martínez</p>
+
+              <div className="glass px-4 py-2 rounded-full">
+                <span className="text-white/50 text-xs uppercase tracking-[0.3em]">Le Barber · Est. 2024</span>
               </div>
             </div>
-            {/* Boxing corner decoration */}
-            <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-gold-500" />
-            <div className="absolute -top-3 -right-3 w-6 h-6 border-t-2 border-r-2 border-gold-500" />
-            <div className="absolute -bottom-3 -left-3 w-6 h-6 border-b-2 border-l-2 border-gold-500" />
-            <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-gold-500" />
-          </div>
+          </motion.div>
 
-          {/* Info */}
-          <div>
-            <p className="text-white/60 text-base leading-relaxed mb-8">
+          {/* Right — info */}
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          >
+            <p className="text-white/50 text-lg leading-relaxed mb-8">
               Barbero profesional con dominio total de los estilos más demandados.
               Cada cliente es un proyecto único — por eso Marcos revisa personalmente
               cada reserva antes de confirmarla.
             </p>
 
-            {/* What he does */}
+            {/* Specialties */}
             <div className="mb-6">
-              <h3 className="text-gold-500 text-xs font-bold uppercase tracking-widest mb-3">✓ Especialidades</h3>
+              <p className="text-gold-500 text-xs font-bold uppercase tracking-widest mb-3">Especialidades</p>
               <div className="flex flex-wrap gap-2">
-                {specialties.map((s) => (
-                  <span key={s} className="flex items-center gap-1.5 text-sm px-3 py-1.5 bg-gold-500/10 text-gold-300 border border-gold-500/20 rounded-full">
+                {specialties.map((s, i) => (
+                  <motion.span
+                    key={s}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ delay: 0.3 + i * 0.07 }}
+                    className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-full font-medium"
+                    style={{ background: 'rgba(201,168,76,0.1)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.2)' }}
+                  >
                     <CheckCircle className="w-3.5 h-3.5" /> {s}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
 
-            {/* What he doesn't do */}
+            {/* Not available */}
             <div className="mb-8">
-              <h3 className="text-white/30 text-xs font-bold uppercase tracking-widest mb-3">✕ No disponible</h3>
+              <p className="text-white/25 text-xs font-bold uppercase tracking-widest mb-3">No disponible</p>
               <div className="flex flex-wrap gap-2">
                 {notAvailable.map((s) => (
-                  <span key={s} className="text-sm px-3 py-1.5 bg-white/5 text-white/30 border border-white/10 rounded-full line-through">
-                    {s}
-                  </span>
+                  <span key={s} className="text-sm px-3 py-1.5 rounded-full text-white/20 border border-white/10 line-through">{s}</span>
                 ))}
               </div>
             </div>
 
-            {/* Availability notice */}
-            <div className="bg-zinc-900 border border-gold-500/20 rounded-xl p-5 mb-6">
+            {/* Availability box */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.6 }}
+              className="glass rounded-2xl p-5 border border-gold-500/15 mb-8"
+            >
               <div className="flex items-start gap-3">
-                <Clock className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />
+                <div className="w-9 h-9 rounded-full bg-gold-500/10 border border-gold-500/20 flex items-center justify-center shrink-0">
+                  <Clock className="w-4 h-4 text-gold-500" />
+                </div>
                 <div>
                   <p className="text-white font-bold text-sm mb-1">Disponibilidad variable</p>
-                  <p className="text-white/50 text-sm leading-relaxed">
-                    El horario de Marcos varía cada semana. Reserva tu hora preferida y él confirmará
-                    en menos de 24h si puede atenderte. Si no puede, te avisamos y devolvemos la señal.
+                  <p className="text-white/40 text-sm leading-relaxed">
+                    Reserva tu hora y Marcos confirmará en menos de 24h.
+                    Si no puede, <span className="text-gold-400">se devuelven los 3€</span> automáticamente.
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             <Link href="/reservar">
-              <button className="w-full bg-gold-500 hover:bg-gold-400 text-black font-black uppercase tracking-widest py-4 rounded transition-colors">
-                Reservar con Marcos — 3€ señal
-              </button>
+              <motion.button
+                whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(201,168,76,0.3)' }}
+                whileTap={{ scale: 0.97 }}
+                className="w-full inline-flex items-center justify-center gap-3 py-4 rounded-2xl bg-gradient-to-r from-gold-500 to-gold-400 text-black font-black uppercase tracking-widest"
+              >
+                Reservar con Marcos — 3€ señal <ArrowRight className="w-5 h-5" />
+              </motion.button>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

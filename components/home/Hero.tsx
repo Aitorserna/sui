@@ -1,99 +1,193 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { ChevronDown } from 'lucide-react'
-import Button from '@/components/ui/Button'
+import { motion } from 'framer-motion'
+import { ArrowRight, Scissors } from 'lucide-react'
+
+function AnimatedBg() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {/* Deep black base */}
+      <div className="absolute inset-0 bg-black" />
+
+      {/* Animated gradient blobs */}
+      <div className="blob-1 absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full opacity-20"
+        style={{ background: 'radial-gradient(circle, #C9A84C 0%, transparent 70%)' }} />
+      <div className="blob-2 absolute bottom-[-30%] right-[-15%] w-[80vw] h-[80vw] rounded-full opacity-15"
+        style={{ background: 'radial-gradient(circle, #DC143C 0%, transparent 65%)' }} />
+      <div className="blob-3 absolute top-[40%] left-[40%] w-[40vw] h-[40vw] rounded-full opacity-10"
+        style={{ background: 'radial-gradient(circle, #C9A84C 0%, transparent 70%)' }} />
+
+      {/* Grid lines */}
+      <div className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(201,168,76,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.5) 1px, transparent 1px)',
+          backgroundSize: '80px 80px',
+        }} />
+
+      {/* Vignette */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+    </div>
+  )
+}
+
+const words = ['Fade', 'Corte', 'Barba', 'Cejas', 'Estilo']
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Background diagonal stripes — boxing ring style */}
-      <div className="absolute inset-0 opacity-[0.04]"
-        style={{ backgroundImage: 'repeating-linear-gradient(45deg, #C9193A 0, #C9193A 2px, transparent 0, transparent 40px)' }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <AnimatedBg />
 
-      {/* Corner boxing decorations */}
-      <div className="absolute top-24 left-8 w-12 h-12 border-t-4 border-l-4 border-gold-500/40 hidden lg:block" />
-      <div className="absolute top-24 right-8 w-12 h-12 border-t-4 border-r-4 border-gold-500/40 hidden lg:block" />
-      <div className="absolute bottom-16 left-8 w-12 h-12 border-b-4 border-l-4 border-gold-500/40 hidden lg:block" />
-      <div className="absolute bottom-16 right-8 w-12 h-12 border-b-4 border-r-4 border-gold-500/40 hidden lg:block" />
+      {/* Floating decorative scissors */}
+      <motion.div
+        className="absolute top-32 right-[10%] text-gold-500/10 float hidden lg:block"
+        animate={{ rotate: [0, 15, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <Scissors className="w-32 h-32" />
+      </motion.div>
 
-      {/* Vertical rope lines */}
-      <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gold-500/20 to-transparent hidden lg:block" style={{ left: '7%' }} />
-      <div className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gold-500/20 to-transparent hidden lg:block" style={{ right: '7%' }} />
+      {/* Rotating ring decoration */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] spin-slow opacity-5 pointer-events-none hidden lg:block">
+        <svg viewBox="0 0 600 600" className="w-full h-full">
+          <circle cx="300" cy="300" r="290" fill="none" stroke="#C9A84C" strokeWidth="1" strokeDasharray="8 16" />
+          <circle cx="300" cy="300" r="240" fill="none" stroke="#DC143C" strokeWidth="0.5" strokeDasharray="4 20" />
+        </svg>
+      </div>
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
-        {/* Vintage eyebrow */}
-        <div className="inline-flex items-center gap-4 mb-6">
-          <div className="h-px w-10 bg-gold-500" />
-          <span className="text-gold-500 text-xs tracking-[0.5em] uppercase font-bold">Est. 2024 · Barbería</span>
-          <div className="h-px w-10 bg-gold-500" />
-        </div>
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
 
-        {/* Main title — boxing poster style */}
-        <div className="mb-4">
-          <p className="text-white/40 text-sm tracking-[0.4em] uppercase mb-2">Presenta</p>
-          <h1 className="font-black uppercase leading-none tracking-tight">
-            <span className="block text-white text-7xl sm:text-8xl md:text-9xl">Le</span>
-            <span className="block text-gold-500 text-7xl sm:text-8xl md:text-9xl -mt-4">Barber</span>
-          </h1>
-        </div>
-
-        {/* Boxing belt divider */}
-        <div className="flex items-center justify-center gap-3 my-6">
-          <div className="h-px flex-1 max-w-24 bg-gold-500/50" />
-          <div className="flex gap-1">
-            {['✦','✦','✦'].map((s, i) => <span key={i} className="text-gold-500 text-xs">{s}</span>)}
+        {/* Eyebrow badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-3 mb-8"
+        >
+          <div className="glass px-4 py-2 rounded-full flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-gold-500 animate-pulse" />
+            <span className="text-white/60 text-xs tracking-[0.3em] uppercase font-medium">Barbería · Reservas Online</span>
           </div>
-          <div className="h-px flex-1 max-w-24 bg-gold-500/50" />
+        </motion.div>
+
+        {/* Main title */}
+        <div className="mb-6 overflow-hidden">
+          <motion.h1
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="font-black leading-none"
+          >
+            <span className="block text-white text-[clamp(4rem,15vw,11rem)] tracking-tight">Le</span>
+            <span className="block shimmer-text text-[clamp(4rem,15vw,11rem)] tracking-tight -mt-6">Barber</span>
+          </motion.h1>
         </div>
 
-        <p className="text-white/50 text-lg sm:text-xl max-w-xl mx-auto mb-2 leading-relaxed italic">
-          "El ring donde tu imagen gana el combate"
-        </p>
-        <p className="text-white/30 text-sm max-w-lg mx-auto mb-10">
-          Fades, cortes clásicos, barba, cejas y cuidado capilar.<br />
-          Con Marcos Martínez — reserva con solo <span className="text-gold-400 font-bold">3€ de señal</span>
-        </p>
-
-        {/* Stats */}
-        <div className="flex justify-center gap-10 mb-10">
-          {[
-            { value: '1', label: 'Maestro barbero' },
-            { value: '∞', label: 'Dedicación' },
-            { value: '3€', label: 'Solo señal' },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="text-3xl font-black text-gold-500">{s.value}</div>
-              <div className="text-white/30 text-xs mt-1 uppercase tracking-wider">{s.label}</div>
-            </div>
+        {/* Animated word loop */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="flex items-center justify-center gap-3 mb-8 flex-wrap"
+        >
+          {words.map((word, i) => (
+            <motion.span
+              key={word}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6 + i * 0.1 }}
+              className="glass px-4 py-1.5 rounded-full text-sm text-white/70 font-medium tracking-wider"
+            >
+              {word}
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="text-white/50 text-lg sm:text-xl max-w-2xl mx-auto mb-4 leading-relaxed"
+        >
+          Con <span className="text-white font-semibold">Marcos Martínez</span> —
+          maestro del fade, corte clásico, barba y cejas.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="text-white/30 text-sm mb-12"
+        >
+          Reserva con solo <span className="text-gold-400 font-bold">3€ de señal</span> · Confirma Marcos en menos de 24h
+        </motion.p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
           <Link href="/reservar">
-            <Button size="lg" className="text-base px-10">
-              🥊 Reservar Cita — 3€ señal
-            </Button>
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(201,168,76,0.4)' }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative overflow-hidden inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gradient-to-r from-gold-500 to-gold-400 text-black font-black text-base uppercase tracking-widest"
+            >
+              <span>Reservar Ahora · 3€</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors duration-300" />
+            </motion.button>
           </Link>
           <a href="#servicios">
-            <Button size="lg" variant="secondary" className="text-base px-10">
-              Ver Servicios y Precios
-            </Button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full glass border border-white/20 hover:border-gold-500/50 text-white font-semibold text-base uppercase tracking-wider transition-colors"
+            >
+              Ver precios
+            </motion.button>
           </a>
-        </div>
+        </motion.div>
 
-        {/* Notice */}
-        <p className="text-white/20 text-xs mt-8 max-w-sm mx-auto">
-          La disponibilidad varía. Marcos confirma tu cita en menos de 24h. El resto del precio se abona en el local.
-        </p>
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+          className="flex justify-center gap-12 mt-20"
+        >
+          {[
+            { value: '3€', label: 'Solo señal' },
+            { value: '<24h', label: 'Confirmación' },
+            { value: '6', label: 'Servicios' },
+          ].map((s) => (
+            <div key={s.label} className="text-center">
+              <div className="text-3xl sm:text-4xl font-black text-gold-500 leading-none">{s.value}</div>
+              <div className="text-white/30 text-xs mt-2 uppercase tracking-widest">{s.label}</div>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-        <ChevronDown className="w-5 h-5 text-gold-500" />
-      </div>
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-5 h-9 border-2 border-white/20 rounded-full flex justify-center pt-1.5"
+        >
+          <div className="w-1 h-2 bg-gold-500 rounded-full" />
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

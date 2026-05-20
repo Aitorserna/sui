@@ -1,42 +1,93 @@
 @import "tailwindcss";
 
 @theme {
-  /* Boxing red palette — replaces gold throughout the app */
-  --color-gold-50: #fff1f2;
-  --color-gold-100: #ffe0e3;
-  --color-gold-200: #ffc0c7;
-  --color-gold-300: #ff8f9a;
-  --color-gold-400: #f75060;
-  --color-gold-500: #C9193A;
-  --color-gold-600: #a8142f;
-  --color-gold-700: #8b1027;
-  --color-gold-800: #6b0d1e;
-  --color-gold-900: #4a0913;
-  --color-gold-950: #2d050c;
+  --color-gold-50: #fff8f0;
+  --color-gold-100: #ffecd0;
+  --color-gold-200: #ffd499;
+  --color-gold-300: #ffb84d;
+  --color-gold-400: #ff9900;
+  --color-gold-500: #C9A84C;
+  --color-gold-600: #a0782a;
+  --color-gold-700: #7a5a1e;
+  --color-gold-800: #5a4016;
+  --color-gold-900: #3d2a0d;
+  --color-gold-950: #1f1507;
+
+  --color-crimson-400: #ff4d6d;
+  --color-crimson-500: #DC143C;
+  --color-crimson-600: #b01030;
+  --color-crimson-700: #8b0c25;
+  --color-crimson-900: #3d0510;
 }
 
+* { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+body { background: #000; color: #fff; overflow-x: hidden; }
 
-body { background: #0a0a0a; color: #fff; }
-
-/* Vintage texture overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' fill='%23ffffff08'/%3E%3C/svg%3E");
+/* ── Gradient blob animation ── */
+@keyframes blob {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  33%       { transform: translate(40px,-30px) scale(1.1); }
+  66%       { transform: translate(-20px,40px) scale(0.95); }
+}
+@keyframes blob2 {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  33%       { transform: translate(-50px,30px) scale(1.05); }
+  66%       { transform: translate(30px,-40px) scale(1.1); }
+}
+@keyframes blob3 {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%       { transform: translate(25px,25px) scale(1.08); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #111; }
-::-webkit-scrollbar-thumb { background: #C9193A44; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #C9193A88; }
+.blob-1 { animation: blob  8s ease-in-out infinite; }
+.blob-2 { animation: blob2 10s ease-in-out infinite; }
+.blob-3 { animation: blob3 12s ease-in-out infinite; }
+.float  { animation: float 4s ease-in-out infinite; }
+.spin-slow { animation: spin-slow 20s linear infinite; }
 
-/* Vintage stamp style */
-.stamp {
-  border: 3px solid currentColor;
-  transform: rotate(-2deg);
-  display: inline-block;
+.shimmer-text {
+  background: linear-gradient(90deg, #fff 0%, #C9A84C 30%, #DC143C 50%, #C9A84C 70%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
 }
+
+.glass {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.glass-dark {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #C9A84C55; border-radius: 4px; }
